@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 
 const JWT_SECRET = "sumantamongo$boy";
 
-//Create auser using
+//Create a user -post /api/auth/createuser
 router.post(
   "/createuser",
   [
@@ -57,5 +57,54 @@ router.post(
     }
   }
 );
+
+
+//auth a user -post /api/auth/login
+
+router.post(
+  "/login",
+  [
+    body("email", "Enter valid email").isEmail(),
+    body("password", "Password cannot be blank").exists(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const {email, password} = req.body;
+    try{
+     let user = await User.findOne({email});
+
+     if(!user){
+       return res.status(400).json({error: "please try to login with correct credentials"});
+     }
+
+     const passwordCompare = await bcrypt.compare(password, user.password)
+     if(!passwordCompare){
+      return res.status(400).json({error: "please try to login with correct credentials"});
+     }
+
+     const data = {
+      user: {
+        id: user.id,
+      },
+    };
+    //jwt Token
+    const authtoken = jwt.sign(data, JWT_SECRET);
+    res.json({ authtoken });
+
+
+    }catch (error){
+      console.log(error.message);
+      res.status(500).send("Some Error occured");
+    }
+
+
+  }
+);
+
+
 
 module.exports = router;
