@@ -106,16 +106,14 @@ router.post(
 );
 
 //route:3 gat login user details -post /api/auth/gatuser
-router.post(
-  "/gatuser",fetchuser, async (req, res) => {
-    try {
-      userId = req.user.id;
-      const user = await User.findById(userId).select("-password");
-      res.send(user)
-    } catch (error) {
-      console.log(error.message);
-      res.status(500).send("Some Error occured");
-    }
+router.post("/gatuser", fetchuser, async (req, res) => {
+  try {
+    userId = req.user.id;
+    const user = await User.findById(userId).select("-password");
+    res.send(user);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Some Error occured");
   }
-);
+});
 module.exports = router;
