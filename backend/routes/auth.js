@@ -4,10 +4,11 @@ const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const fetchuser = require("../middleware/fetchuser");
 
 const JWT_SECRET = "sumantamongo$boy";
 
-//Create a user -post /api/auth/createuser
+//route:1 Create a user -post /api/auth/createuser
 router.post(
   "/createuser",
   [
@@ -58,8 +59,7 @@ router.post(
   }
 );
 
-
-//auth a user -post /api/auth/login
+//route:2 auth a user -post /api/auth/login
 
 router.post(
   "/login",
@@ -73,38 +73,49 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const {email, password} = req.body;
-    try{
-     let user = await User.findOne({email});
+    const { email, password } = req.body;
+    try {
+      let user = await User.findOne({ email });
 
-     if(!user){
-       return res.status(400).json({error: "please try to login with correct credentials"});
-     }
+      if (!user) {
+        return res
+          .status(400)
+          .json({ error: "please try to login with correct credentials" });
+      }
 
-     const passwordCompare = await bcrypt.compare(password, user.password)
-     if(!passwordCompare){
-      return res.status(400).json({error: "please try to login with correct credentials"});
-     }
+      const passwordCompare = await bcrypt.compare(password, user.password);
+      if (!passwordCompare) {
+        return res
+          .status(400)
+          .json({ error: "please try to login with correct credentials" });
+      }
 
-     const data = {
-      user: {
-        id: user.id,
-      },
-    };
-    //jwt Token
-    const authtoken = jwt.sign(data, JWT_SECRET);
-    res.json({ authtoken });
-
-
-    }catch (error){
+      const data = {
+        user: {
+          id: user.id,
+        },
+      };
+      //jwt Token
+      const authtoken = jwt.sign(data, JWT_SECRET);
+      res.json({ authtoken });
+    } catch (error) {
       console.log(error.message);
       res.status(500).send("Some Error occured");
     }
-
-
   }
 );
 
-
-
+//route:3 gat login user details -post /api/auth/gatuser
+router.post(
+  "/gatuser",fetchuser, async (req, res) => {
+    try {
+      userId = req.user.id;
+      const user = await User.findById(userId).select("-password");
+      res.send(user)
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).send("Some Error occured");
+    }
+  }
+);
 module.exports = router;
