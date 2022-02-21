@@ -54,7 +54,7 @@ router.post(
       res.json({ authtoken });
     } catch (error) {
       console.log(error.message);
-      res.status(500).send("Some Error occured");
+      res.status(500).send("Internal Server Error");
     }
   }
 );
@@ -100,7 +100,7 @@ router.post(
       res.json({ authtoken });
     } catch (error) {
       console.log(error.message);
-      res.status(500).send("Some Error occured");
+      res.status(500).send("Internal Server Error");
     }
   }
 );
@@ -113,7 +113,7 @@ router.post("/gatuser", fetchuser, async (req, res) => {
     res.send(user);
   } catch (error) {
     console.log(error.message);
-    res.status(500).send("Some Error occured");
+    res.status(500).send("Internal Server Error");
   }
 });
 module.exports = router;
