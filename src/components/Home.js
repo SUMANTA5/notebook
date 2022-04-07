@@ -1,9 +1,7 @@
 import React from "react";
-import noteContext from "../context/notes/noteContext";
 import { Notes } from "./Notes";
 
 export const home = () => {
- 
   return (
     <div>
       <div className="container my-3">
@@ -48,9 +46,7 @@ export const home = () => {
           </button>
         </form>
       </div>
-      <Notes>
-
-      </Notes>
+      <Notes></Notes>
     </div>
   );
 };
