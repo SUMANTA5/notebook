@@ -4,7 +4,7 @@ import { Notes } from "./Notes";
 export const home = () => {
   return (
     <div>
-      <Notes/>
+      <Notes />
     </div>
   );
 };

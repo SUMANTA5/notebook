@@ -1,20 +1,24 @@
-import React,{ useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import noteContext from "../context/notes/noteContext";
 
 function AddNote() {
-    const context = useContext(noteContext);
-    const {addNote } = context;
+  const context = useContext(noteContext);
+  const { addNote } = context;
 
-    const [note, setNote] = useState({title: "", description: "", tag: "default"})
+  const [note, setNote] = useState({
+    title: "",
+    description: "",
+    tag: "default",
+  });
 
-    const handleclick = (e)=>{
+  const handleclick = (e) => {
     e.preventDefault();
-      addNote(note.title, note.description, note.tag);
-    }
+    addNote(note.title, note.description, note.tag);
+  };
 
-   const onChange = (e)=>{
-      setNote({...note,[e.target.name]: e.target.value})
-   }
+  const onChange = (e) => {
+    setNote({ ...note, [e.target.name]: e.target.value });
+  };
   return (
     <div>
       <div className="container my-3">
@@ -35,7 +39,7 @@ function AddNote() {
           </div>
           <div className="mb-3">
             <label htmlFor="description" className="form-label">
-            Description
+              Description
             </label>
             <input
               type="text"
@@ -56,7 +60,11 @@ function AddNote() {
               Check me out
             </label>
           </div>
-          <button type="submit" className="btn btn-primary" onClick={handleclick}>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={handleclick}
+          >
             Submit
           </button>
         </form>
