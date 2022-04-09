@@ -65,7 +65,7 @@ function AddNote() {
             className="btn btn-primary"
             onClick={handleclick}
           >
-            Submit
+            Add Note
           </button>
         </form>
       </div>
