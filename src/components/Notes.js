@@ -31,8 +31,8 @@ export const Notes = () => {
   const refClose = useRef(null);
 
   const handleclick = (e) => {
-    editNote(note.id, note.etitle, note.edescription, note.etag)
-    refClose.current.click()
+    editNote(note.id, note.etitle, note.edescription, note.etag);
+    refClose.current.click();
   };
 
   const onChange = (e) => {
@@ -117,14 +117,18 @@ export const Notes = () => {
             </div>
             <div className="modal-footer">
               <button
-              ref={refClose}
+                ref={refClose}
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
                 Close
               </button>
-              <button onClick={handleclick} type="button" className="btn btn-primary">
+              <button
+                onClick={handleclick}
+                type="button"
+                className="btn btn-primary"
+              >
                 Update Note
               </button>
             </div>
