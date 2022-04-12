@@ -1,14 +1,18 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 function Signup() {
-
-  const [credentials, setCredentials] = useState({name:"", email: "", password: "", cpassword:"" });
+  const [credentials, setCredentials] = useState({
+    name: "",
+    email: "",
+    password: "",
+    cpassword: "",
+  });
 
   let history = useHistory();
 
   const handleSubmit = async (e) => {
-    const {name,email,password,cpassword} = credentials;
+    const { name, email, password, cpassword } = credentials;
     const host = "http://localhost:5000";
     e.preventDefault();
     //Api call
@@ -18,8 +22,10 @@ function Signup() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-       name, email, password
-      })
+        name,
+        email,
+        password,
+      }),
     });
     const json = await response.json();
     console.log(json);
@@ -75,7 +81,8 @@ function Signup() {
             id="password"
             name="password"
             onChange={onChange}
-            minLength={5} required
+            minLength={5}
+            required
           />
         </div>
         <div className="mb-3">
@@ -88,7 +95,8 @@ function Signup() {
             id="cpassword"
             name="cpassword"
             onChange={onChange}
-            minLength={5} required
+            minLength={5}
+            required
           />
         </div>
         <button type="submit" className="btn btn-primary">

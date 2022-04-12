@@ -31,7 +31,10 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ success, error: "Sorry a user with this email already exists" });
+          .json({
+            success,
+            error: "Sorry a user with this email already exists",
+          });
       }
 
       //bcrypt
@@ -81,18 +84,24 @@ router.post(
       let user = await User.findOne({ email });
 
       if (!user) {
-        success = false
+        success = false;
         return res
           .status(400)
-          .json({ success, error: "please try to login with correct credentials" });
+          .json({
+            success,
+            error: "please try to login with correct credentials",
+          });
       }
 
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
-        success = false
+        success = false;
         return res
           .status(400)
-          .json({ success, error: "please try to login with correct credentials" });
+          .json({
+            success,
+            error: "please try to login with correct credentials",
+          });
       }
 
       const data = {
