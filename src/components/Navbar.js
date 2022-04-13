@@ -3,14 +3,13 @@ import { useHistory } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
 
 export default function Navbar() {
-
   let history = useHistory();
   let location = useLocation();
 
-  const handleLogout = ()=>{
-    localStorage.removeItem('token');
-    history.push('/login')
-  }
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    history.push("/login");
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -53,10 +52,20 @@ export default function Navbar() {
               </Link>
             </li>
           </ul>
-         { !localStorage.getItem ('token') ? <form className="d-flex">
-          <Link className="btn btn-primary mx-1" to="/login" role="button">Login</Link>
-          <Link className="btn btn-primary mx-1" to="/signup" role="button">Signup</Link>
-          </form> : <button onClick={handleLogout} className="btn btn-primary">Logout</button> }
+          {!localStorage.getItem("token") ? (
+            <form className="d-flex">
+              <Link className="btn btn-primary mx-1" to="/login" role="button">
+                Login
+              </Link>
+              <Link className="btn btn-primary mx-1" to="/signup" role="button">
+                Signup
+              </Link>
+            </form>
+          ) : (
+            <button onClick={handleLogout} className="btn btn-primary">
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </nav>

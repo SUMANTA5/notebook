@@ -9,10 +9,10 @@ export const Notes = (props) => {
   let history = useHistory();
   const { notes, gatNotes, editNote } = context;
   useEffect(() => {
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem("token")) {
       gatNotes();
-    }else{
-      history.push("/login")
+    } else {
+      history.push("/login");
     }
     // eslint-disable-next-line
   }, []);
