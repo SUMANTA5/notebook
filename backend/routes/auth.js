@@ -120,8 +120,8 @@ router.post(
   }
 );
 
-//route:3 gat login user details -post /api/auth/gatuser
-router.post("/gatuser", fetchuser, async (req, res) => {
+//route:3 gat login user details -post /api/auth/getuser
+router.post("/getuser", fetchuser, async (req, res) => {
   try {
     userId = req.user.id;
     const user = await User.findById(userId).select("-password");
